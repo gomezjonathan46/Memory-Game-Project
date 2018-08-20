@@ -28,6 +28,22 @@ function shuffle(array) {
 // Shuffle list of cards
 shuffle(cards);
 
+// Creates HTML for each card in shuffled deck, then adds the HTML to the page.
+deck = document.querySelector('.deck');
+
+for (card in cards) {
+	parentOfList = document.createElement('div');
+	newList = parentOfList.insertAdjacentElement('beforeend', document.createElement('li'));
+	newList.classList.add('card', 'open', 'show')
+	childOfList = newList.insertAdjacentElement('beforeend', document.createElement('i'));
+	childOfList.classList.add('fa', cards[card]);
+	parentOfList.appendChild(newList);
+	deck.appendChild(newList);
+	}
+
+
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
