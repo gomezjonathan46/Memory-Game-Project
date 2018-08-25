@@ -38,21 +38,45 @@ for (card in listOfCards) {
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
 */
-function clicked(ev){
-  if (ev.target.classList.contains('card')) {
-    ev.target.classList.toggle('open')
-    ev.target.classList.toggle('show')
+
+let open = [];
+
+function flipCards(card){
+  if (card.target.classList.contains('card')) {
+    card.target.classList.toggle('open')
+    card.target.classList.toggle('show')
+    open.push(card.target)
   }
-  ev.stopPropagation();
+  card.stopPropagation();
 }
 
-document.querySelector('.deck').addEventListener('click',clicked);
+document.querySelector('.deck').addEventListener('click',flipCards);
 
 
- /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+// - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+// - if the list already has another card, check to see if the two cards match
+//    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+//    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+
+function checkForMatch(ev){
+  if (open.length > 1) {
+    if (open[0].innerHTML === open[1].innerHTML) {
+      open.forEach(function(card) {
+        card.classList.add('match');
+      })
+      open = [];
+    } else {
+      setTimeout(function() {
+        open.forEach(function(card) {
+          card.classList.toggle('open');
+          card.classList.toggle('show');
+          open = [];
+        })}, 1000);
+    }
+  }
+}
+
+document.querySelector('.deck').addEventListener('click', checkForMatch);
+
+//    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+//    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
