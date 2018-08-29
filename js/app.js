@@ -42,7 +42,7 @@ for (card in listOfCards) {
 let open = [];
 
 function flipCards(card){
-  if (card.target.classList.contains('card') && open.length <= 1) {
+  if (card.target.classList.contains('card') && open.length <= 1 && !open.includes(card.target)) {
     card.target.classList.toggle('open')
     card.target.classList.toggle('show')
     open.push(card.target)
@@ -76,13 +76,7 @@ function checkForMatch(ev){
   }
 }
 
-function unclickable(item) {
-  item.preventDefault();
-  item.stopPropagation();
-}
-
 document.querySelector('.deck').addEventListener('click', checkForMatch);
-document.querySelector('.match').addEventListener('click', unclickable);
 
 
 //    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
