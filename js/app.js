@@ -84,8 +84,11 @@ function checkForMatch(ev){
 
 document.querySelector('.deck').addEventListener('click', checkForMatch);
 
-
-
+// < 10 moves for 3 stars and
+if (moveCounter == 2) {
+  star = document.querySelector('li');
+  document.querySelector('.stars').removeChild(star);
+}
 
 
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
