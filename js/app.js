@@ -42,7 +42,7 @@ for (card in listOfCards) {
 let open = [];
 
 function flipCards(card){
-  if (card.target.classList.contains('card') && open.length <= 1) {
+  if (card.target.classList.contains('card') && open.length <= 1 && !open.includes(card.target)) {
     card.target.classList.toggle('open')
     card.target.classList.toggle('show')
     open.push(card.target)
