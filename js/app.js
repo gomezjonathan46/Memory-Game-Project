@@ -4,8 +4,9 @@ const listOfCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "
 let moveCounter = 0;
 let win = false;
 let match = 0;
-let startGame = false
-let timerStarted = false
+let timerStarted = false;
+let endGame = false;
+let timer
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -87,6 +88,9 @@ function checkForMatch(ev){
       open.forEach(function(card) {
         card.classList.add('match');
         match++
+        if (match === 16) {
+          stopTimer();
+        }
       })
       open = [];
     } else {
@@ -110,9 +114,13 @@ const minutesLabel = document.getElementById("minutes");
 const secondsLabel = document.getElementById("seconds");
 let totalSeconds = 0;
 
-function startTimer(){
-  setInterval(setTime, 1000);
+function startTimer() {
+  timer = setInterval(setTime, 1000);
   timerStarted = true;
+}
+
+function stopTimer() {
+  clearInterval(timer);
 }
 
 function setTime() {
