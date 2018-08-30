@@ -60,6 +60,18 @@ document.querySelector('.deck').addEventListener('click',flipCards);
 //    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
 
 
+
+function removeStars () {
+ if (moveCounter === 24) {
+   const star1 = document.querySelector('li');
+   document.querySelector('.stars').removeChild(star1);
+ } else if (moveCounter === 32) {
+   const star2 = document.querySelector('li');
+   document.querySelector('.stars').removeChild(star2);
+ }
+}
+
+
 let moves = document.querySelector('.moves')
 
 function checkForMatch(ev){
@@ -79,16 +91,14 @@ function checkForMatch(ev){
     }
     moveCounter++
     moves.innerHTML = moveCounter.toString();
+    removeStars();
   }
 }
 
 document.querySelector('.deck').addEventListener('click', checkForMatch);
 
-function unclickable(item) {
 
-}
-
-
+// < 10 moves for 3 stars and
 
 
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
