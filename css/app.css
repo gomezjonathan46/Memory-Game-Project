@@ -107,3 +107,7 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+#minutes {
+  margin-left: 27px;
+}

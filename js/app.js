@@ -4,6 +4,8 @@ const listOfCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "
 let moveCounter = 0;
 let win = false;
 let match = 0;
+let startGame = false
+let timerStarted = false
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -48,6 +50,9 @@ function flipCards(card){
     card.target.classList.toggle('open')
     card.target.classList.toggle('show')
     open.push(card.target)
+    if (timerStarted === false) {
+      startTimer();
+    }
   }
   card.stopPropagation();
 }
@@ -82,7 +87,6 @@ function checkForMatch(ev){
       open.forEach(function(card) {
         card.classList.add('match');
         match++
-        console.log("Here are the number of matches:" + match)
       })
       open = [];
     } else {
@@ -101,6 +105,30 @@ function checkForMatch(ev){
 
 document.querySelector('.deck').addEventListener('click', checkForMatch);
 
+//setTime and pad function from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+const minutesLabel = document.getElementById("minutes");
+const secondsLabel = document.getElementById("seconds");
+let totalSeconds = 0;
+
+function startTimer(){
+  setInterval(setTime, 1000);
+  timerStarted = true;
+}
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  let valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
 
 
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
