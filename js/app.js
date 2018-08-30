@@ -2,6 +2,8 @@
 
 const listOfCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor", "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"]
 let moveCounter = 0;
+let win = false;
+let match = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -79,6 +81,8 @@ function checkForMatch(ev){
     if (open[0].innerHTML === open[1].innerHTML) {
       open.forEach(function(card) {
         card.classList.add('match');
+        match++
+        console.log("Here are the number of matches:" + match)
       })
       open = [];
     } else {
@@ -97,8 +101,6 @@ function checkForMatch(ev){
 
 document.querySelector('.deck').addEventListener('click', checkForMatch);
 
-
-// < 10 moves for 3 stars and
 
 
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
