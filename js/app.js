@@ -7,6 +7,9 @@ let match = 0;
 let timerStarted = false;
 let endGame = false;
 let timer
+const stars = document.querySelectorAll('.fa-star');
+const moves = document.querySelector('.moves')
+const deck = document.querySelector('.deck');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -27,13 +30,11 @@ function shuffle(array) {
 shuffle(listOfCards);
 
 // Creates HTML for each card in shuffled deck, then adds the HTML to the page.
-deck = document.querySelector('.deck');
-
 for (card in listOfCards) {
-	parentOfList = document.createElement('div');
-	newList = parentOfList.insertAdjacentElement('beforeend', document.createElement('li'));
-	newList.classList.add('card')
-	childOfList = newList.insertAdjacentElement('beforeend', document.createElement('i'));
+	let parentOfList = document.createElement('div');
+	let newList = parentOfList.insertAdjacentElement('beforeend', document.createElement('li'));
+	newList.classList.add('card');
+	let childOfList = newList.insertAdjacentElement('beforeend', document.createElement('i'));
 	childOfList.classList.add('fa', listOfCards[card]);
 	parentOfList.appendChild(newList);
 	deck.appendChild(newList);
@@ -69,18 +70,14 @@ document.querySelector('.deck').addEventListener('click',flipCards);
 
 
 
-function removeStars () {
- if (moveCounter === 24) {
-   const star1 = document.querySelector('li');
-   document.querySelector('.stars').removeChild(star1);
- } else if (moveCounter === 32) {
-   const star2 = document.querySelector('li');
-   document.querySelector('.stars').removeChild(star2);
+function removeStars() {
+ if (moveCounter === 16) {
+   stars[0].classList.toggle('fa-star');
+ } else if (moveCounter === 24) {
+   stars[1].classList.toggle('fa-star');
  }
 }
 
-
-let moves = document.querySelector('.moves')
 
 function checkForMatch(ev){
   if (open.length > 1) {
@@ -138,5 +135,48 @@ function pad(val) {
   }
 }
 
+
+function reset() {
+  //Restarts the timer
+  timerStarted = false;
+  stopTimer();
+  totalSeconds = 0;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+
+  //Reshuffles the listOfCards
+  shuffle(listOfCards);
+
+  //Clears the deck
+  document.querySelector('.deck').innerHTML = ""
+
+  //Populates the deck with the new shuffled cards
+  for (card in listOfCards) {
+  	let parentOfList = document.createElement('div');
+  	let newList = parentOfList.insertAdjacentElement('beforeend', document.createElement('li'));
+  	newList.classList.add('card');
+  	let childOfList = newList.insertAdjacentElement('beforeend', document.createElement('i'));
+  	childOfList.classList.add('fa', listOfCards[card]);
+  	parentOfList.appendChild(newList);
+  	deck.appendChild(newList);
+  	}
+
+  //Adds the removed stars back onto the page
+  if (moveCounter > 0) {
+    if (moveCounter >= 16 && moveCounter < 23) {
+      stars[0].classList.toggle('fa-star');
+    }
+    if (moveCounter >= 24) {
+      stars[0].classList.toggle('fa-star');
+      stars[1].classList.toggle('fa-star');
+    }
+  }
+
+  //Resets the moveCounter back to 0
+  moveCounter = 0;
+  moves.innerHTML = moveCounter.toString();
+}
+
+document.querySelector('.restart').addEventListener('click', reset);
 
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
