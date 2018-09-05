@@ -73,8 +73,10 @@ document.querySelector('.deck').addEventListener('click',flipCards);
 function removeStars() {
  if (moveCounter === 16) {
    stars[0].classList.toggle('fa-star');
+   stars[3].classList.toggle('fa-star');
  } else if (moveCounter === 24) {
    stars[1].classList.toggle('fa-star');
+   stars[4].classList.toggle('fa-star');
  }
 }
 
@@ -173,10 +175,13 @@ function reset() {
   if (moveCounter > 0) {
     if (moveCounter >= 16 && moveCounter < 23) {
       stars[0].classList.toggle('fa-star');
+      stars[3].classList.toggle('fa-star');
     }
     if (moveCounter >= 24) {
       stars[0].classList.toggle('fa-star');
       stars[1].classList.toggle('fa-star');
+      stars[3].classList.toggle('fa-star');
+      stars[4].classList.toggle('fa-star');
     }
   }
 
