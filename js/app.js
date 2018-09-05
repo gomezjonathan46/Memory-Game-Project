@@ -90,7 +90,7 @@ function checkForMatch(ev){
         match++
         if (match === 16) {
           stopTimer();
-          document.querySelector('.modal-background').style.display = "block"
+          document.querySelector('.modal').style.display = "block"
         }
       })
       open = [];
@@ -139,5 +139,9 @@ function pad(val) {
   }
 }
 
+function newGame() {
+  console.log('It works!')
+}
+document.querySelector('.modal-button-yes').addEventListener('click', newGame);
 
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
