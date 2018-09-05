@@ -196,6 +196,14 @@ function closeModal() {
   document.querySelector('.modal').style.display = "none"
 }
 
+function playAgain() {
+  closeModal();
+  reset();
+}
+
 document.querySelector('.close-modal').addEventListener('click', closeModal);
+document.querySelector('.modal-button-no').addEventListener('click', closeModal);
+document.querySelector('.modal-button-yes').addEventListener('click', playAgain);
+
 
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
