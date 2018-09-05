@@ -116,7 +116,7 @@ h1 {
 }
 
 .modal {
-  display: none;
+  display: block;
   position: absolute;
   z-index: 1;
   width: 100%;
@@ -148,11 +148,11 @@ h3 {
   margin-top: 10px;
 }
 
-.modal-button-yes, .modal-button-no, .close-window {
+.modal-button-yes, .modal-button-no, .close-modal {
   cursor: pointer;
 }
 
-.close-window {
+.close-modal {
   height: 8px;
   padding: 5px;
 }

@@ -192,4 +192,10 @@ function reset() {
 
 document.querySelector('.restart').addEventListener('click', reset);
 
+function closeModal() {
+  document.querySelector('.modal').style.display = "none"
+}
+
+document.querySelector('.close-modal').addEventListener('click', closeModal);
+
 //    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
