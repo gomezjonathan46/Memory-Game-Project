@@ -125,6 +125,9 @@ function setTime() {
   ++totalSeconds;
   secondsLabel.innerHTML = pad(totalSeconds % 60);
   minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+  //Display time on modal
+  modalMinutes.innerHTML = minutesLabel.innerHTML;
+  modalSeconds.innerHTML = secondsLabel.innerHTML;
 }
 
 function pad(val) {
