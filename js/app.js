@@ -136,6 +136,10 @@ function pad(val) {
   }
 }
 
+function newGame() {
+  console.log('It works!')
+}
+document.querySelector('.modal-button-yes').addEventListener('click', newGame);
 
 function reset() {
   //Restarts the timer

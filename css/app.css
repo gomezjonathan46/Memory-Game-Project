@@ -116,9 +116,52 @@ h1 {
 }
 
 .modal {
+  display: none;
+}
+
+.modal-background {
   width: 100%;
   height: 110%;
   background-color: #00000047;
   position: absolute;
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-text-box {
+  width: 400px;
+  height: 200px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+h3 {
+  margin-top: 10px;
+}
+
+.modal-button, .close-window {
+  cursor: pointer;
+}
+
+.close-window {
+  height: 8px;
+  padding: 5px;
+}
+
+.modal-button-yes, .modal-button-no {
+  margin-left: 20px;
+  min-width: 48px;
+  min-height: 48px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
 }
