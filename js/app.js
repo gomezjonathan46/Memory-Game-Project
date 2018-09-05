@@ -90,7 +90,7 @@ function checkForMatch(ev){
         match++
         if (match === 16) {
           stopTimer();
-          document.querySelector('.modal').style.display = "block"
+          document.querySelector('.modal-background').style.display = "block"
         }
       })
       open = [];
