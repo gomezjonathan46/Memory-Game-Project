@@ -2,14 +2,15 @@
 
 const listOfCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor", "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"]
 let moveCounter = 0;
-let win = false;
 let match = 0;
 let timerStarted = false;
-let endGame = false;
 let timer
 const stars = document.querySelectorAll('.fa-star');
 const moves = document.querySelector('.moves')
 const deck = document.querySelector('.deck');
+const minutesLabel = document.getElementById("minutes");
+const secondsLabel = document.getElementById("seconds");
+let totalSeconds = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -82,38 +83,32 @@ function removeStars() {
 
 
 function checkForMatch(ev){
-  if (open.length > 1) {
-    if (open[0].innerHTML === open[1].innerHTML) {
+  if (open[0].innerHTML === open[1].innerHTML) {
+    open.forEach(function(card) {
+      card.classList.add('match');
+      match++
+      if (match === 16) {
+        stopTimer();
+        document.querySelector('.modal').style.display = "block"
+      }
+    })
+    open = [];
+  } else {
+    setTimeout(function() {
       open.forEach(function(card) {
-        card.classList.add('match');
-        match++
-        if (match === 16) {
-          stopTimer();
-          document.querySelector('.modal').style.display = "block"
-        }
-      })
-      open = [];
-    } else {
-      setTimeout(function() {
-        open.forEach(function(card) {
-          card.classList.toggle('open');
-          card.classList.toggle('show');
-          open = [];
-        })}, 1000);
-    }
-    moveCounter++
-    moves.innerHTML = moveCounter.toString();
-    removeStars();
+        card.classList.toggle('open');
+        card.classList.toggle('show');
+        open = [];
+      })}, 1000);
   }
+  moveCounter++
+  moves.innerHTML = moveCounter.toString();
+  removeStars();
 }
 
 document.querySelector('.deck').addEventListener('click', checkForMatch);
 
 //setTime and pad function from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-const minutesLabel = document.getElementById("minutes");
-const secondsLabel = document.getElementById("seconds");
-let totalSeconds = 0;
-
 function startTimer() {
   timer = setInterval(setTime, 1000);
   timerStarted = true;
@@ -140,11 +135,6 @@ function pad(val) {
     return valString;
   }
 }
-
-function newGame() {
-  console.log('It works!')
-}
-document.querySelector('.modal-button-yes').addEventListener('click', newGame);
 
 function reset() {
   //Restarts the timer
@@ -187,6 +177,7 @@ function reset() {
 
   //Resets the moveCounter back to 0
   moveCounter = 0;
+  match = 0;
   moves.innerHTML = moveCounter.toString();
 }
 
