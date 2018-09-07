@@ -11,6 +11,7 @@ const deck = document.querySelector('.deck');
 const minutesLabel = document.getElementById("minutes");
 const secondsLabel = document.getElementById("seconds");
 let totalSeconds = 0;
+let open = [];
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -46,13 +47,15 @@ for (card in listOfCards) {
  *  - display the card's symbol (put this functionality in another function that you call from this one)
 */
 
-let open = [];
-
 function flipCards(card){
-  if (card.target.classList.contains('card') && open.length <= 1 && !open.includes(card.target) && !card.target.classList.contains('match')) {
+  if (card.target.classList.contains('card') && open.length <= 1 && !open.includes(card.target) && !card.target.classList.contains('match') && !card.target.classList.contains('open')) {
+    if (open.length === 1) {
+      moveCounter++
+      moves.innerHTML = moveCounter.toString();
+    }
+    open.push(card.target)
     card.target.classList.toggle('open')
     card.target.classList.toggle('show')
-    open.push(card.target)
     if (timerStarted === false) {
       startTimer();
     }
@@ -101,8 +104,6 @@ function checkForMatch(ev){
         open = [];
       })}, 1000);
   }
-  moveCounter++
-  moves.innerHTML = moveCounter.toString();
   removeStars();
 }
 
