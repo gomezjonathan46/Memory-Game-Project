@@ -1,17 +1,16 @@
-// Create a list that holds all of your cards
-
-const listOfCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor", "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"]
+const listOfCards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor", "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube"];
 let moveCounter = 0;
 let match = 0;
 let timerStarted = false;
-let timer
+let timer;
 const stars = document.querySelectorAll('.fa-star');
-const moves = document.querySelector('.moves')
+const moves = document.querySelector('.moves');
 const deck = document.querySelector('.deck');
 const minutesLabel = document.getElementById("minutes");
 const secondsLabel = document.getElementById("seconds");
 let totalSeconds = 0;
 let open = [];
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -28,8 +27,10 @@ function shuffle(array) {
     return array;
 }
 
+
 // Shuffle list of cards
 shuffle(listOfCards);
+
 
 // Creates HTML for each card in shuffled deck, then adds the HTML to the page.
 for (card in listOfCards) {
@@ -42,20 +43,17 @@ for (card in listOfCards) {
 	deck.appendChild(newList);
 	}
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
-*/
 
+// Flips the cards, adds card to open list, increases the move counter, and starts the timer.
 function flipCards(card){
   if (card.target.classList.contains('card') && open.length <= 1 && !open.includes(card.target) && !card.target.classList.contains('match') && !card.target.classList.contains('open')) {
     if (open.length === 1) {
-      moveCounter++
+      moveCounter++;
       moves.innerHTML = moveCounter.toString();
     }
-    open.push(card.target)
-    card.target.classList.toggle('open')
-    card.target.classList.toggle('show')
+    open.push(card.target);
+    card.target.classList.toggle('open');
+    card.target.classList.toggle('show');
     if (timerStarted === false) {
       startTimer();
     }
@@ -66,14 +64,7 @@ function flipCards(card){
 document.querySelector('.deck').addEventListener('click',flipCards);
 
 
-// - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
-// - if the list already has another card, check to see if the two cards match
-//    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
-//    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-//    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
-
-
-
+// Removes stars from game and modal.
 function removeStars() {
  if (moveCounter === 16) {
    stars[0].classList.toggle('fa-star');
@@ -84,15 +75,18 @@ function removeStars() {
  }
 }
 
-
+// Checks if the two cards in the open list match.
+// If they do, the match counter increases. When the match counter reaches 16 the timer stops and the modal pops up.
+// if they don't match, there's a second pause before the cards flip back over.
+// The open list clears and stars are removed depending on the number of moves.
 function checkForMatch(ev){
   if (open[0].innerHTML === open[1].innerHTML) {
     open.forEach(function(card) {
       card.classList.add('match');
-      match++
+      match++;
       if (match === 16) {
         stopTimer();
-        document.querySelector('.modal').style.display = "block"
+        document.querySelector('.modal').style.display = "block";
       }
     })
     open = [];
@@ -108,6 +102,7 @@ function checkForMatch(ev){
 }
 
 document.querySelector('.deck').addEventListener('click', checkForMatch);
+
 
 //setTime and pad function from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
 function startTimer() {
@@ -137,6 +132,8 @@ function pad(val) {
   }
 }
 
+
+// Creates functionality for the reset button
 function reset() {
   //Restarts the timer
   timerStarted = false;
@@ -149,7 +146,7 @@ function reset() {
   shuffle(listOfCards);
 
   //Clears the deck
-  document.querySelector('.deck').innerHTML = ""
+  document.querySelector('.deck').innerHTML = "";
 
   //Populates the deck with the new shuffled cards
   for (card in listOfCards) {
@@ -176,7 +173,7 @@ function reset() {
     }
   }
 
-  //Resets the moveCounter back to 0
+  //Resets the moveCounter and match counter back to 0
   moveCounter = 0;
   match = 0;
   moves.innerHTML = moveCounter.toString();
@@ -184,10 +181,14 @@ function reset() {
 
 document.querySelector('.restart').addEventListener('click', reset);
 
+
+// Hides the modal
 function closeModal() {
-  document.querySelector('.modal').style.display = "none"
+  document.querySelector('.modal').style.display = "none";
 }
 
+
+// Closes the modal and resets the game if the player clicks yes on the modal.
 function playAgain() {
   closeModal();
   reset();
